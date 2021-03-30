@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-         git clone ${{ secrets.ACCESS_TOKEN }}@github.com/${{ env.PrivateRepo }}.git 
+         git clone ${{ secrets.ACCESS_TOKEN }}@github.com:${{ env.PrivateRepo }}.git 
          mkdir -p output
          cp ${{ env.PrivateRepo }}${{ env.PrivateRepoMD }} output/Resume.md
       - name: Build custom Pandoc Docker Container
