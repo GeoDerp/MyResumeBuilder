@@ -1,6 +1,8 @@
 name: Resume.md to Resume-JohnWhately.pdf
 
-on: push
+on: 
+  push:
+  repository_dispatch:
 
 jobs:
   convert_via_pandoc:
