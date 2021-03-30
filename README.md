@@ -9,4 +9,5 @@ Repo to auto generate Resume pdf files from my Resume.md on commit using pandoc 
 - [ ] Find best google font and refine action code 
 - [ ] custom sizing of diffrent headers to make it more visually appealing (not much visuall size diffrence between h1 and h3)
 - [ ] change character for sub sub dotpoints
-- [ ] clone file from a private repo to keep security
+- [x] clone file from a private repo to keep security
+  - [ ] push file from container when finished to keep security   
