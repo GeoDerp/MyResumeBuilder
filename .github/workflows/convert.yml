@@ -18,10 +18,12 @@ jobs:
       PrivateRepoMD: /Resume/Resume.md #directory in repo to .md assuming .md is Resume.md
     steps:
       - uses: actions/checkout@v2
+        with: 
+          repository: ${{ env.PrivateRepo }}
+          token: ${{ secrets.ACCESS_TOKEN }}
       - run: |
-         git clone ${{ secrets.ACCESS_TOKEN }}@github.com:${{ env.PrivateRepo }}.git 
          mkdir -p output
-         cp ${{ env.PrivateRepo }}${{ env.PrivateRepoMD }} output/Resume.md
+         cp "$(pwd)"${{ env.PrivateRepoMD }} output/Resume.md
       - name: Build custom Pandoc Docker Container
         run:  echo -e 'FROM pandoc/latex:2.9\n
           RUN apk add --no-cache git\n
@@ -40,11 +42,7 @@ jobs:
           -V 'mainfont:${{ env.GFontAUX }}-${{ env.GfontMain }}'
           -V 'mainfontoptions:BoldFont=${{ env.GFontAUX }}-${{ env.GfontBold }}, ItalicFont=${{ env.GFontAUX }}-${{ env.GfontItalic }}, BoldItalicFont=${{ env.GFontAUX }}-${{ env.GfontBoldItalic }}'
           /output/Resume.md
-      - name: upload file to git repo
-        run: |
-          mkdir -p "$(pwd)"/${{ env.PrivateRepo }}/output
-          cp /output/Resume-JohnWhately.pdf "$(pwd)"/${{ env.PrivateRepo }}/output/
-          git -C "$(pwd)"/${{ env.PrivateRepo }} add 
-          git -C "$(pwd)"/${{ env.PrivateRepo }} commit -m ".md converted via git action"
-          git -C "$(pwd)"/${{ env.PrivateRepo }} push 
-          
+      - uses: actions/upload-artifact@master
+        with:
+          name: output
+          path: output/Resume-JohnWhately.pdf
