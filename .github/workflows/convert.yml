@@ -23,8 +23,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
       - run: |
          mkdir -p output
-         ls
-         cp ${{ env.PrivateRepo }}${{ env.PrivateRepoMD }} output/Resume.md
+         cp ${{ env.PrivateRepoMD }} output/Resume.md
       - name: Build custom Pandoc Docker Container
         run:  echo -e 'FROM pandoc/latex:2.9\n
           RUN apk add --no-cache git\n
