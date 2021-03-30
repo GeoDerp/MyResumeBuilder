@@ -1,0 +1,46 @@
+name: Resume.md to Resume-JohnWhately.pdf
+
+on: push
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-18.04
+    env:
+      Gfont: Work-Sans   #font name on github repo
+      GFontAUX: WorkSans #font name on file 
+      GfontMain: Regular
+      GfontBold: Bold
+      GfontItalic: Light
+      GfontBoldItalic: Bold
+      PrivateRepo: GeoDerp/MyResume
+      PrivateRepoMD: /Resume/Resume.md #directory in repo to .md assuming .md is Resume.md
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          repository: ${{ env.PrivateRepo }}
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - run: |
+         mkdir -p output
+         cp ${{ env.PrivateRepo }}${{ env.PrivateRepoMD }} output/Resume.md
+      - name: Build custom Pandoc Docker Container
+        run:  echo -e 'FROM pandoc/latex:2.9\n
+          RUN apk add --no-cache git\n
+          RUN mkdir -p ~/.fonts/${{ env.Gfont }}\n
+          RUN git clone https://github.com/googlefonts/${{ env.Gfont }}.git\n
+          RUN cp ${{ env.Gfont }}/fonts/desktop/* ~/.fonts/${{ env.Gfont }}\n
+          RUN fc-cache -f -v' | docker build -t custompandoclatex -
+      - name: run custom docker container 
+        run: >-
+          docker run -v "$(pwd)"/output:/output:z custompandoclatex
+          --output=/output/Resume-JohnWhately.pdf
+          --pdf-engine=xelatex
+          --variable urlcolor=blue
+          -f gfm
+          -V geometry:margin=0.5in
+          -V 'mainfont:${{ env.GFontAUX }}-${{ env.GfontMain }}'
+          -V 'mainfontoptions:BoldFont=${{ env.GFontAUX }}-${{ env.GfontBold }}, ItalicFont=${{ env.GFontAUX }}-${{ env.GfontItalic }}, BoldItalicFont=${{ env.GFontAUX }}-${{ env.GfontBoldItalic }}'
+          /output/Resume.md
+      - uses: actions/upload-artifact@master
+        with:
+          name: output
+          path: output/Resume-JohnWhately.pdf
