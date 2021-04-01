@@ -2,7 +2,7 @@ name: Resume.md to Resume-JohnWhately.pdf
 
 on: 
   push:
-  repository_dispatch:
+  repository_dispatch: #on commit, in the private repo storing .md, run git action with ping to this action call run build.
 
 jobs:
   convert_via_pandoc:
