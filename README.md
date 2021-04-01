@@ -2,6 +2,7 @@
 Repo to auto generate Resume pdf files from my Resume.md on commit using pandoc alpine docker container
 
 <br/>
+
 # Things still to do
 ---
 - [ ] Horizontal rules to spand the whole document 
