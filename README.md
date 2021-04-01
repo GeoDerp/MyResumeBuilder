@@ -1,5 +1,6 @@
 # MyResumeBuilder
-Repo to auto generate Resume pdf files from my Resume.md on commit using pandoc alpine docker container
+A repo to auto generate Resume .pdf files from my Resume.md on commit using pandoc alpine docker container in Github Actions. <br/>
+(*this action could would for diffrent files and formats but not tested*)
 
 <br/>
 
