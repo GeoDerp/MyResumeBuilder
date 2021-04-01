@@ -8,13 +8,16 @@ jobs:
   convert_via_pandoc:
     runs-on: ubuntu-18.04
     env:
+      PandocOutputFilename: Resume-JohnWhately.pdf
+      PandocInputFilename: Resume.md #if changed, PrivateRepoMD will also need to be changed to equivilate
+      PandocInputFormat: gfm # gfm = github markdown format
       Gfont: Work-Sans   #font name on github repo
       GFontAUX: WorkSans #font name on file 
       GfontMain: Regular
       GfontBold: Bold
       GfontItalic: Light
       GfontBoldItalic: Bold
-      PrivateRepo: GeoDerp/MyResume
+      PrivateRepo: GeoDerp/MyResume #repo where you store your Resume.md
       PrivateRepoMD: /Resume/Resume.md #directory in repo to .md assuming .md is Resume.md
     steps:
       - uses: actions/checkout@v2
@@ -34,15 +37,15 @@ jobs:
       - name: run custom docker container 
         run: >-
           docker run -v "$(pwd)"/output:/output:z custompandoclatex
-          --output=/output/Resume-JohnWhately.pdf
+          --output=/output/${{ env.PandocOutputFilename }}
           --pdf-engine=xelatex
           --variable urlcolor=blue
-          -f gfm
+          -f ${{ env.PandocInputFormat }}
           -V geometry:margin=0.5in
           -V 'mainfont:${{ env.GFontAUX }}-${{ env.GfontMain }}'
           -V 'mainfontoptions:BoldFont=${{ env.GFontAUX }}-${{ env.GfontBold }}, ItalicFont=${{ env.GFontAUX }}-${{ env.GfontItalic }}, BoldItalicFont=${{ env.GFontAUX }}-${{ env.GfontBoldItalic }}'
-          /output/Resume.md
+          /output/${{ env.PandocInputFilename }}
       - uses: actions/upload-artifact@master
         with:
           name: output
-          path: output/Resume-JohnWhately.pdf
+          path: output/${{ env.PandocOutputFilename }}
