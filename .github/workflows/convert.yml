@@ -33,16 +33,13 @@ jobs:
           RUN mkdir -p ~/.fonts/${{ env.Gfont }}\n
           RUN git clone https://github.com/googlefonts/${{ env.Gfont }}.git\n
           RUN cp ${{ env.Gfont }}/fonts/desktop/* ~/.fonts/${{ env.Gfont }}\n
-          RUN fc-cache -f -v\n
-          RUN curl -s https://api.github.com/repos/Wandmalfarbe/pandoc-latex-template/releases/latest | grep "Eisvogel.tar.gz" | cut -d ":" -f 2,3 | tr -d \" | wget -qi -\n
-          RUN mkdir -p /Users/USERNAME/.local/share/pandoc/templates/\n
-          RUN tar -C /Users/USERNAME/.local/share/pandoc/templates/ -zxvf Eisvogel.tar.gz eisvogel.latex' | docker build -t custompandoclatex -
+          RUN fc-cache -f -v' | docker build -t custompandoclatex -
       - name: run custom docker container 
         run: >-
           docker run -v "$(pwd)"/output:/output:z custompandoclatex
           --output=/output/${{ env.PandocOutputFilename }}
           --pdf-engine=xelatex
-          --template eisvogel
+          --template https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex
           --variable urlcolor=blue
           -f ${{ env.PandocInputFormat }}
           -V geometry:margin=0.5in
