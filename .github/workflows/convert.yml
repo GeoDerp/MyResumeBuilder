@@ -29,17 +29,21 @@ jobs:
          cp "$(pwd)"${{ env.PrivateRepoMD }} output/Resume.md
       - name: Build custom Pandoc Docker Container
         run:  echo -e 'FROM pandoc/latex:2.9\n
-          RUN apk add --no-cache git curl\n
+          RUN apk add --no-cache git\n
           RUN mkdir -p ~/.fonts/${{ env.Gfont }}\n
           RUN git clone https://github.com/googlefonts/${{ env.Gfont }}.git\n
           RUN cp ${{ env.Gfont }}/fonts/desktop/* ~/.fonts/${{ env.Gfont }}\n
-          RUN fc-cache -f -v' | docker build -t custompandoclatex -
+          RUN fc-cache -f -v\n
+          RUN apk add texmf-dist-latexextra\n
+          RUN tlmgr install adjustbox babel-german background bidi collectbox csquotes everypage filehook footmisc footnotebackref framed fvextra letltxmacro ly1 mdframed mweights needspace pagecolor sourcecodepro sourcesanspro titling ucharcat ulem unicode-math upquote xecjk xurl zref\n
+          ' | docker build -t custompandoclatex -
       - name: run custom docker container 
         run: >-
           docker run -v "$(pwd)"/output:/output:z custompandoclatex
           --output=/output/${{ env.PandocOutputFilename }}
           --pdf-engine=xelatex
           --template https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex
+          --listings
           --variable urlcolor=blue
           -f ${{ env.PandocInputFormat }}
           -V geometry:margin=0.5in
