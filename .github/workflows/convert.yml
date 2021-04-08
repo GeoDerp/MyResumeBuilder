@@ -47,9 +47,6 @@ jobs:
           --number-sections
           --variable urlcolor=blue
           -f ${{ env.PandocInputFormat }}
-          #-V geometry:margin=0.5in
-          #-V 'mainfont:${{ env.GFontAUX }}-${{ env.GfontMain }}'
-          #-V 'mainfontoptions:BoldFont=${{ env.GFontAUX }}-${{ env.GfontBold }}, ItalicFont=${{ env.GFontAUX }}-${{ env.GfontItalic }}, BoldItalicFont=${{ env.GFontAUX }}-${{ env.GfontBoldItalic }}'
           /output/${{ env.PandocInputFilename }}
       - uses: actions/upload-artifact@master
         with:
