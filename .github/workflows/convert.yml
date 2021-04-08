@@ -42,7 +42,7 @@ jobs:
           docker run -v "$(pwd)"/output:/output:z custompandoclatex
           --output=/output/${{ env.PandocOutputFilename }}
           --pdf-engine=xelatex
-          --template https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/master/eisvogel.tex
+          --template https://raw.githubusercontent.com/GeoDerp/pandoc-latex-template/master/eisvogel.tex
           --listings
           --number-sections
           --variable urlcolor=blue
