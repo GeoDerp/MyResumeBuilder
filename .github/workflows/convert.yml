@@ -44,7 +44,6 @@ jobs:
           --pdf-engine=xelatex
           --template https://raw.githubusercontent.com/GeoDerp/pandoc-latex-template/master/eisvogel.tex
           --listings
-          --number-sections
           --variable urlcolor=blue
           -f ${{ env.PandocInputFormat }}
           /output/${{ env.PandocInputFilename }}
