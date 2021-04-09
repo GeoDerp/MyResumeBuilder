@@ -47,7 +47,8 @@ jobs:
           -V geometry:margin=0.5in
           -V 'mainfont:${{ env.GFontAUX }}-${{ env.GfontMain }}'
           -V 'mainfontoptions:BoldFont=${{ env.GFontAUX }}-${{ env.GfontBold }}, ItalicFont=${{ env.GFontAUX }}-${{ env.GfontItalic }}, BoldItalicFont=${{ env.GFontAUX }}-${{ env.GfontBoldItalic }}'
-          --variable urlcolor=blue
+          -V urlcolor=blue
+          -V disable-header-and-footer=true
           -f ${{ env.PandocInputFormat }}
           /output/${{ env.PandocInputFilename }}
       - uses: actions/upload-artifact@master
