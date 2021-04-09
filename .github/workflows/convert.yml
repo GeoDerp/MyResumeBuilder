@@ -11,12 +11,13 @@ jobs:
       PandocOutputFilename: Resume-JohnWhately.pdf
       PandocInputFilename: Resume.md #if changed, PrivateRepoMD will also need to be changed to equivilate
       PandocInputFormat: gfm # gfm = github markdown format
-      Gfont: Work-Sans   #font name on github repo
-      GFontAUX: WorkSans #font name on file 
+      Gfont: noto-fonts   #font name on github repo
+      GFontAUX: NotoSans #font name on file
+      GFontDir: archive/hinted/NotoSans #git directory to fonts 
       GfontMain: Regular
       GfontBold: Bold
-      GfontItalic: Light
-      GfontBoldItalic: Bold
+      GfontItalic: Italic
+      GfontBoldItalic: BoldItalic
       PrivateRepo: GeoDerp/MyResume #repo where you store your Resume.md
       PrivateRepoMD: /Resume/Resume.md #directory in repo to .md assuming .md is Resume.md
     steps:
@@ -32,7 +33,7 @@ jobs:
           RUN apk add --no-cache git\n
           RUN mkdir -p ~/.fonts/${{ env.Gfont }}\n
           RUN git clone https://github.com/googlefonts/${{ env.Gfont }}.git\n
-          RUN cp ${{ env.Gfont }}/fonts/desktop/* ~/.fonts/${{ env.Gfont }}\n
+          RUN cp ${{ env.Gfont }}${{ GFontDir }}/* ~/.fonts/${{ env.Gfont }}\n
           RUN fc-cache -f -v\n
           RUN apk add texmf-dist-latexextra\n
           RUN tlmgr install adjustbox babel-german background bidi collectbox csquotes everypage filehook footmisc footnotebackref framed fvextra letltxmacro ly1 mdframed mweights needspace pagecolor sourcecodepro sourcesanspro titling ucharcat ulem unicode-math upquote xecjk xurl zref\n
