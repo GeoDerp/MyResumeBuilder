@@ -4,7 +4,7 @@ A repo to auto generate Resume .pdf files from my Resume.md on commit using pand
 
 <br/>
 
-# To do
+## To do
 
 - [x] Horizontal rules to spand the whole document 
 - [ ] get page ends working to make making new pages easier 
@@ -16,3 +16,4 @@ A repo to auto generate Resume .pdf files from my Resume.md on commit using pand
 - [x] clone file from a private repo to keep security
   - [ ]  ~~push file from container when finished to keep security~~ - replaced with redaction 
   - [ ]  Implement Latex *`censor`* package to redact automatically redact text
+- [ ]  give up and just write the Resume in LaTeX
