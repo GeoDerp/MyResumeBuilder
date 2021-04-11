@@ -5,11 +5,13 @@ A repo to auto generate Resume .pdf files from my Resume.md on commit using pand
 <br/>
 
 # To do
----
+
 - [x] Horizontal rules to spand the whole document 
 - [ ] get page ends working to make making new pages easier 
 - [ ] Find best google font and refine action code 
-- [ ] custom sizing of diffrent headers to make it more visually appealing (not much visuall size diffrence between h1 and h3)
+  - [ ] change font size 
+  - [ ] find out why some of the text seems ill spaced 
+- [ ] custom sizing of diffrent headers to make it more visually appealing (not much visuall size diffrence between h1 and h3)  
 - [ ] change character for sub sub dotpoints
 - [x] clone file from a private repo to keep security
   - [ ]  ~~push file from container when finished to keep security~~ - replaced with redaction 
